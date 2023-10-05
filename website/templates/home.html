@@ -45,6 +45,8 @@
 {% else %}
 
 <h1>Login </h1>
+{{TESTE_ENV}}
+
 
 <form method="post"  action="{% url 'home' %}">
     {% csrf_token %}
