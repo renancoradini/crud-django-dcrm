@@ -1,9 +1,14 @@
 import mysql.connector
+from pathlib import Path
+import environ
+env = environ.Env()
+environ.Env.read_env()
+
 
 dataBase = mysql.connector.connect(
-host = 'localhost',
-user = 'admin', 
-passwd = 'admin123456'
+host = env('DATABASE_HOST'),
+user = env('DATABASE_USER'), 
+passwd = env('DATABASE_PASS')
 )
 
 #prepare a cursos object

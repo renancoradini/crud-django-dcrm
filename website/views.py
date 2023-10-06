@@ -4,6 +4,7 @@ from django.contrib import messages
 from .forms import SignUpForm, AddRecordForm
 from .models import Record
 from pathlib import Path
+
 import environ
 env = environ.Env()
 environ.Env.read_env()

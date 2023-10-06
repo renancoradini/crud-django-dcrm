@@ -1,0 +1,27 @@
+version: '3'
+services:
+  db:
+    image: mysql:8
+    ports:
+      - "3307:3307"
+    env_file:
+     - ./dcrm/.env
+    environment:
+      - MYSQL_DATABASE=${DATABASE_NAME}
+      - MYSQL_USER=${DATABASE_USER}
+      - MYSQL_PASSWORD=${DATABASE_PASS}
+      - MYSQL_ROOT_PASSWORD=${DATABASE_ROOT_PASS}
+      - MYSQL_HOST=${DATABASE_HOST}
+    volumes:
+      - /tmp/app/mysqld:/var/run/mysqld
+      - ./db:/var/lib/mysql
+  web:
+    build: .
+    command: "python3 manage.py runserver"
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - /tmp/app/mysqld:/run/mysqld
+    depends_on:
+      - db
