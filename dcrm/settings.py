@@ -58,6 +58,13 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+
+#add it to the setting file
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://appdenzel.priscilacoradini.com'
+]
+
 ROOT_URLCONF = "dcrm.urls"
 
 TEMPLATES = [
