@@ -30,7 +30,7 @@ resource "aws_alb_target_group" "alb_public_webservice_target_group" {
 resource "aws_lb_listener" "lb_listener-webservice-https" {
   load_balancer_arn = aws_lb.loadbalancer.arn
   port              = "443"
-  protocol          = "HTTPs"
+  protocol          = "HTTPS"
   #ssl_policy        = "ELBSecurityPolicy-2016-08"
   certificate_arn = aws_acm_certificate.appdenzelcert.arn
 
@@ -55,6 +55,11 @@ resource "aws_lb_listener" "lb_listener-webservice-https-redirect" {
       status_code = "HTTP_301"
     }
   }
+}
+
+resource "aws_lb_listener_certificate" "example" {
+  listener_arn    = aws_lb_listener.lb_listener-webservice-https.arn
+  certificate_arn = aws_acm_certificate.appdenzelcert.arn
 }
 
 
