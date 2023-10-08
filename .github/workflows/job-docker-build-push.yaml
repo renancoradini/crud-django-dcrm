@@ -8,7 +8,8 @@ jobs:
     runs-on: ubuntu-latest    
 
     steps:
-    - uses: actions/checkout@v3.6.0
+    - name: Check out code
+      uses: actions/checkout@v3.6.0
         
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -27,8 +28,7 @@ jobs:
         ECR_REPOSITORY: ecrrepo2
         IMAGE_TAG: ${{ github.sha }}
       run: |
-          docker build \
-          -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG . \
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG . \
           --build-arg SECRET_KEY=django-insecure-#s)!uwp$&gyz%$f36)-wx!cp%e94zv*qus6l(i-+ff10xxc8ef \
           --build-arg  DATABASE_NAME=datadenzel \
           --build-arg  DATABASE_USER=admin \
