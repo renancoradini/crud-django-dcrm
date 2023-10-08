@@ -41,4 +41,4 @@ jobs:
             DATABASE_PASS=admin123456
             DATABASE_HOST=name1db.cehtpurygiku.us-west-2.rds.amazonaws.com
             DATABASE_ROOT_PASS=admin123456
-            TESTE_ENV=VALOR RECEBIDO VIA GITHUBACTIONS
+            TESTE_ENV=VALOR RECEBIDO VIA GITHUBACTIONS"
