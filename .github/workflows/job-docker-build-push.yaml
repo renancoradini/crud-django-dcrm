@@ -37,4 +37,4 @@ jobs:
           --build-arg DATABASE_ROOT_PASS=admin123456 \
           --build-arg TESTE_ENV="GIT HUBACTIONS" \
           --no-cache . |
-          docker push ${{$ECR_REGISTRY}}/${{$$ECR_REPOSITORY}}:${{$IMAGE_TAG}}
+          docker push ${{ ECR_REGISTRY }}/${{ ECR_REPOSITORY }}:${{ IMAGE_TAG }}
