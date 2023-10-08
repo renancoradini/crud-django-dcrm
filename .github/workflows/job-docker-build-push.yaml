@@ -21,14 +21,15 @@ jobs:
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
-    
-    - name: Build, tag, and push image to Amazon ECR
+
+    - name: Build, tag, and push docker image to Amazon ECR Public
       env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: ecrrepo2
-        IMAGE_TAG: ${{ github.sha }} 
+        REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
+        REGISTRY_ALIAS: ecrrepo2
+        REPOSITORY: ecrrepo2
+        IMAGE_TAG: ${{ github.sha }}
       run: |
-          docker build -t $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG \
+          docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG \
           --build-arg DATABASE_NAME=datadenzel \
           --build-arg DATABASE_HOST='name1db.caj0opxz25vn.us-west-2.rds.amazonaws.com' \
           --build-arg SECRET_KEY='django-insecure-#s)!uwp$&gyz%$f36)-wx!cp%e94zv*qus6l(i-+ff10xxc8ef' \
@@ -37,4 +38,4 @@ jobs:
           --build-arg DATABASE_ROOT_PASS=admin123456 \
           --build-arg TESTE_ENV="GIT HUBACTIONS" \
           --no-cache .          
-          docker push $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG
+          docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
