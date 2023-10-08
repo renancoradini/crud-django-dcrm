@@ -28,8 +28,13 @@ jobs:
         ECR_REPOSITORY: ecrrepo2
         IMAGE_TAG: ${{ github.sha }}
       run: |
-       docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-       docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker build \
+          --build-arg DATABASE_USER=admin \
+          --build-arg DATABASE_PASS=admin123456 \
+          --build-arg DATABASE_ROOT_PASS=admin123456 \
+          --build-arg TESTE_ENV=VALOR RECEBIDO VIA GITHUBACTIONS \
+          -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG . \
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
 
 
