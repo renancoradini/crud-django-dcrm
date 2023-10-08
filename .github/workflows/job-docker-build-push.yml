@@ -33,12 +33,12 @@ jobs:
         region: us-west-2
         repo: ecrrepo2
         tags: ${{ github.sha }}
+        build_args: |
+           SECRET_KEY=django-insecure-#s)!uwp$&gyz%$f36)-wx!cp%e94zv*qus6l(i-+ff10xxc8ef
+           DATABASE_NAME=datadenzel
+           DATABASE_USER=admin
+           DATABASE_PASS=admin123456
+           DATABASE_HOST=name1db.cehtpurygiku.us-west-2.rds.amazonaws.com
+           DATABASE_ROOT_PASS=admin123456
+           TESTE_ENV=VALOR RECEBIDO VIA GITHUBACTIONS
         dockerfile: Dockerfile
-        build-args: |
-           "SECRET_KEY=django-insecure-#s)!uwp$&gyz%$f36)-wx!cp%e94zv*qus6l(i-+ff10xxc8ef
-            DATABASE_NAME=datadenzel
-            DATABASE_USER=admin
-            DATABASE_PASS=admin123456
-            DATABASE_HOST=name1db.cehtpurygiku.us-west-2.rds.amazonaws.com
-            DATABASE_ROOT_PASS=admin123456
-            TESTE_ENV=VALOR RECEBIDO VIA GITHUBACTIONS"
