@@ -8,37 +8,35 @@ jobs:
     runs-on: ubuntu-latest    
 
     steps:
-    - uses: actions/checkout@v3.6.0
- 
-    # - name: Construction of Docker's image
-    #   uses: docker/build-push-action@v4.1.1
-    #   with:
-    #     context: .
-    #     file: Dockerfile
-    #     push: false
-    #     tags: |
-    #       renancoradini/denzelcrm:${{ github.sha }}
-    #       renancoradini/denzelcrm:${{ github.sha }}
-           
-    - name: Docker AWS ECR
-
-      uses: appleboy/docker-ecr-action@v0.0.3
-      with:
-        access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        region: us-west-2
-        repo: ecrrepo2
-        tags: ${{ github.sha }}
-        dockerfile: Dockerfile
-        build_args: |
-          - "DATABASE_USER=renanzinlindo22"
-          - "DATABASE_NAME=datadenzel"
-          - "DATABASE_HOST=name1db.ck13dgswr816.us-west-2.rds.amazonaws.com"
+    - name: Check out code
+      uses: actions/checkout@v2
         
-          #  SECRET_KEY=django-insecure-#s)!uwp$&gyz%$f36)-wx!cp%e94zv*qus6l(i-+ff10xxc8ef
-          #  DATABASE_NAME=datadenzel
-          #  DATABASE_USER=admin
-          #  DATABASE_PASS=admin123456
-          #  
-          #  DATABASE_ROOT_PASS=admin123456
-          #  TESTE_ENV=VALOR RECEBIDO VIA GITHUBACTIONS
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID  }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-west-2
+    
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+    
+    - name: Build, tag, and push image to Amazon ECR
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: ecrrepo2
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+          docker build \
+          -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG . \
+          --build-arg SECRET_KEY=django-insecure-#s)!uwp$&gyz%$f36)-wx!cp%e94zv*qus6l(i-+ff10xxc8ef \
+          --build-arg  DATABASE_NAME=datadenzel \
+          --build-arg  DATABASE_USER=admin \
+          --build-arg  DATABASE_PASS=admin123456 \
+          --build-arg  DATABASE_ROOT_PASS=admin123456 \
+          --build-arg TESTE_ENV=VALOR RECEBIDO VIA GITHUBACTIONS \
+           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+
+
