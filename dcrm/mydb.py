@@ -3,7 +3,6 @@ from pathlib import Path
 import os
 
 
-
 dataBase = mysql.connector.connect(
 host = os.getenv('DATABASE_HOST'),
 user = os.getenv('DATABASE_USER'), 
