@@ -9,11 +9,10 @@ RUN python3 manage.py makemigrations
 RUN python3 manage.py migrate
 
 
-ARG SECRET_KEY="django-insecure-#s)!uwp$&gyz%$f36)-wx!cp%e94zv*qus6l(i-+ff10xxc8ef"
-ENV SECRET_KEY ${SECRET_KEY}
+ENV SECRET_KEY="django-insecure-#s)!uwp$&gyz%$f36)-wx!cp%e94zv*qus6l(i-+ff10xxc8ef"
 
 ARG DATABASE_NAME
-ENV DATABASE_NAME ${DATABASE_NAME}
+ENV DATABASE_NAME $DATABASE_NAME
 
 ARG DATABASE_USER
 ENV DATABASE_USER ${DATABASE_USER}
