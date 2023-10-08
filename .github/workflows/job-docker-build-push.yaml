@@ -28,14 +28,8 @@ jobs:
         ECR_REPOSITORY: ecrrepo2
         IMAGE_TAG: ${{ github.sha }}
       run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG . \
-          --build-arg SECRET_KEY=django-insecure-#s)!uwp$&gyz%$f36)-wx!cp%e94zv*qus6l(i-+ff10xxc8ef \
-          --build-arg  DATABASE_NAME=datadenzel \
-          --build-arg  DATABASE_USER=admin \
-          --build-arg  DATABASE_PASS=admin123456 \
-          --build-arg  DATABASE_ROOT_PASS=admin123456 \
-          --build-arg TESTE_ENV=VALOR RECEBIDO VIA GITHUBACTIONS \
-           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG . --build-arg SECRET_KEY=django-insecure-#s)!uwp$&gyz%$f36)-wx!cp%e94zv*qus6l(i-+ff10xxc8ef --build-arg  DATABASE_NAME=datadenzel --build-arg  DATABASE_USER=admin --build-arg  DATABASE_PASS=admin123456 --build-arg  DATABASE_ROOT_PASS=admin123456 --build-arg TESTE_ENV=VALOR RECEBIDO VIA GITHUBACTIONS 
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
 
 
