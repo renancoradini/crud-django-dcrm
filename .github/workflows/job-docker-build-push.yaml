@@ -28,7 +28,7 @@ jobs:
         ECR_REPOSITORY: ecrrepo2
         IMAGE_TAG: ${{ github.sha }} 
       run: |
-          docker build \
+          docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG \
           --build-arg DATABASE_NAME=datadenzel \
           --build-arg DATABASE_HOST='name1db.caj0opxz25vn.us-west-2.rds.amazonaws.com' \
           --build-arg SECRET_KEY='django-insecure-#s)!uwp$&gyz%$f36)-wx!cp%e94zv*qus6l(i-+ff10xxc8ef' \
@@ -36,5 +36,5 @@ jobs:
           --build-arg DATABASE_PASS=admin123456 \
           --build-arg DATABASE_ROOT_PASS=admin123456 \
           --build-arg TESTE_ENV="GIT HUBACTIONS" \
-          $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG . 
+          --no-cache .          
           docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
