@@ -30,4 +30,4 @@ jobs:
         repo: ecrrepo2
         tags: ${{ github.sha }}
         dockerfile: Dockerfile
-        build_args: 'SECRET_KEY="django-insecure-#s)!uwp$&gyz%$f36)-wx!cp%e94zv*qus6l(i-+ff10xxc8ef"'
+        build_args: 'SECRET_KEY=django-insecure-#s)!uwp$&gyz%$f36)-wx!cp%e94zv*qus6l(i-+ff10xxc8ef'
