@@ -7,6 +7,7 @@ RUN pip install -r requirements.txt
 COPY . /app
 RUN python3 manage.py makemigrations
 RUN python3 manage.py migrate
+RUN echo $SECRET_KEY
 
 ARG SECRET_KEY
 ENV SECRET_KEY ${SECRET_KEY}
