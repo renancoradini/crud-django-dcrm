@@ -4,15 +4,11 @@ from django.contrib import messages
 from .forms import SignUpForm, AddRecordForm
 from .models import Record
 from pathlib import Path
-
-import environ
-env = environ.Env()
-environ.Env.read_env()
-
+import os
 
 def home(request):
 	records = Record.objects.all()
-	TESTE_ENV = env('TESTE_ENV')
+	TESTE_ENV = os.getenv('TESTE_ENV')
 	# Check to see if logging in
 	if request.method == 'POST':
 		username = request.POST['username']
