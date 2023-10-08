@@ -6,6 +6,7 @@ from .models import Record
 from pathlib import Path
 import os
 
+
 def home(request):
 	records = Record.objects.all()
 	TESTE_ENV = os.getenv('TESTE_ENV')
