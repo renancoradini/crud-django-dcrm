@@ -31,8 +31,8 @@ jobs:
         repo: ecrrepo2
         tags: ${{ github.sha }}
         dockerfile: Dockerfile
-        build-args: |
-           SECRET_KEY="django-insecure-#s)!uwp$&gyz%$f36)-wx!cp%e94zv*qus6l(i-+ff10xxc8ef"
+        build_args: |
+           SECRET_KEY=django-insecure-#s)!uwp$&gyz%$f36)-wx!cp%e94zv*qus6l(i-+ff10xxc8ef
            DATABASE_NAME="datadenzel"
            DATABASE_USER=admin
            DATABASE_PASS=admin123456
