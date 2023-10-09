@@ -14,7 +14,7 @@ def home(request):
 	records = Record.objects.all()
 	TESTE_ENV = os.getenv('TESTE_ENV')
 	TESTE_ENV2 = os.getenv('TESTE_ENV2')
-	TESTE_ENV3 = os.getenv('TESTE_ENV2')
+	TESTE_ENV3 = os.getenv('TESTE_ENV3')
 	# Check to see if logging in
 	if request.method == 'POST':
 		username = request.POST['username']
