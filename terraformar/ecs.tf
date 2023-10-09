@@ -4,8 +4,7 @@ resource "aws_ecs_cluster" "cluster" {
 }
 
 resource "aws_ecs_cluster_capacity_providers" "cluster-cp-association" {
-  cluster_name = aws_ecs_cluster.cluster.name
-
+  cluster_name       = aws_ecs_cluster.cluster.name
   capacity_providers = [aws_ecs_capacity_provider.capacity-provider.name]
 
   default_capacity_provider_strategy {
@@ -25,6 +24,7 @@ resource "aws_ecs_task_definition" "task_definition" {
   cpu                      = "256"
   requires_compatibilities = ["EC2"] # Fargate or EC2
   execution_role_arn       = aws_iam_role.ecs_role_task_test.arn
+  task_role_arn            = aws_iam_role.ecs_agent.name
 }
 
 data "template_file" "task_definition_json" {
