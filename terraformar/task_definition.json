@@ -11,13 +11,7 @@
             "awslogs-create-group": "true",
             "awslogs-region": "us-west-2",
             "awslogs-stream-prefix": "ecs"
-                     },
-            "secretOptions": [
-              {
-              "name": "TESTE_ENV3",
-              "valueFrom": "${SSM_TERRAFORM}"
-              }
-            ]
+          }
         },
         "links": [],
         "portMappings": [
@@ -37,6 +31,10 @@
           }
         ],
         "mountPoints": [],
-        "volumesFrom": []
+        "volumesFrom": [],
+        "secrets": [{
+          "name": "TESTE_ENV3",
+          "valueFrom": "${SSM_TERRAFORM}"
+        }]
     }
   ]

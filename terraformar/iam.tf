@@ -50,6 +50,12 @@ resource "aws_iam_role_policy_attachment" "ecs_agent2" {
   depends_on = [aws_iam_role.ecs_agent]
 }
 
+resource "aws_iam_role_policy_attachment" "ecs_agent3" {
+  role       = aws_iam_role.ecs_agent.name
+  policy_arn = aws_iam_policy.ecs_policy_task_test.arn
+  depends_on = [aws_iam_role.ecs_agent]
+}
+
 
 resource "aws_iam_instance_profile" "ecs_agent" {
   name = "ecs-agent"
@@ -69,7 +75,8 @@ resource "aws_iam_policy" "ecs_policy_task_test" {
       {
         Effect = "Allow"
         Action = [
-          "secretsmanager:GetSecretValue"
+          "secretsmanager:GetSecretValue",
+          "ssm:GetParameters"
         ]
         Resource = aws_ssm_parameter.testeEnv3.arn
       }
@@ -100,6 +107,19 @@ resource "aws_iam_policy_attachment" "ecs_role_policy_attacnhement" {
   name       = "Policy Attachement"
   policy_arn = aws_iam_policy.ecs_policy_task_test.arn
   roles      = [aws_iam_role.ecs_role_task_test.name]
+}
+
+
+resource "aws_iam_role_policy_attachment" "ecs_role_policy_attacnhement2" {
+  role       = aws_iam_role.ecs_role_task_test.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSAppRunnerServicePolicyForECRAccess"
+  depends_on = [aws_iam_role.ecs_agent]
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_role_policy_attacnhement3" {
+  role       = aws_iam_role.ecs_role_task_test.name
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
+  depends_on = [aws_iam_role.ecs_agent]
 }
 
 
