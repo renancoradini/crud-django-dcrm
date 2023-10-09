@@ -24,7 +24,16 @@
         "essential": true,
         "entryPoint": [],
         "command": [],
-        "environment": [],
+        "environment": [
+          {
+            "name": "TESTE_ENV2",
+            "value": "CONFIGURADO NA TASK DEFINITION AMAZON2"
+          },
+          {
+            "name": "TESTE_ENV3",
+            "value": "arn:aws:ssm:us-west-2:939600059814:parameter/TESTE_ENV3"
+          }
+        ],
         "mountPoints": [],
         "volumesFrom": []
     }
