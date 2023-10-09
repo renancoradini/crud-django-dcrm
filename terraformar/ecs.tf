@@ -24,6 +24,7 @@ resource "aws_ecs_task_definition" "task_definition" {
   memory                   = "256"
   cpu                      = "256"
   requires_compatibilities = ["EC2"] # Fargate or EC2
+  execution_role_arn       = aws_iam_role.ecs_role_task_test.arn
 }
 
 data "template_file" "task_definition_json" {

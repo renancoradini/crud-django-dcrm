@@ -11,7 +11,13 @@
             "awslogs-create-group": "true",
             "awslogs-region": "us-west-2",
             "awslogs-stream-prefix": "ecs"
-          }
+                     },
+            "secretOptions": [
+              {
+              "name": "TESTE_ENV3",
+              "valueFrom": "${SSM_TERRAFORM}"
+              }
+            ]
         },
         "links": [],
         "portMappings": [
@@ -27,11 +33,7 @@
         "environment": [
           {
             "name": "TESTE_ENV2",
-            "value": "CONFIGURADO NA TASK DEFINITION AMAZON2"
-          },
-          {
-            "name": "TESTE_ENV3",
-            "valueFrom": "${SSM_TERRAFORM}"
+            "value": "CONFIGURADO NA TASKS DEFINITION AMAZON2"
           }
         ],
         "mountPoints": [],

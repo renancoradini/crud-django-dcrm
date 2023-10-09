@@ -57,6 +57,52 @@ resource "aws_iam_instance_profile" "ecs_agent" {
 }
 
 
+#########
+
+# Create an IAM policy
+resource "aws_iam_policy" "ecs_policy_task_test" {
+  name = "ecs_policy_task_test"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "secretsmanager:GetSecretValue"
+        ]
+        Resource = aws_ssm_parameter.testeEnv3.arn
+      }
+    ]
+  })
+}
+
+# Create an IAM role
+resource "aws_iam_role" "ecs_role_task_test" {
+  name = "ecs_role_task_test"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Service = "ecs-tasks.amazonaws.com"
+        }
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
+}
+
+# Attach the IAM policy to the IAM role
+resource "aws_iam_policy_attachment" "ecs_role_policy_attacnhement" {
+  name       = "Policy Attachement"
+  policy_arn = aws_iam_policy.ecs_policy_task_test.arn
+  roles      = [aws_iam_role.ecs_role_task_test.name]
+}
+
+
 
 
 #Lembrar de add esta policies ao ecs_agent
