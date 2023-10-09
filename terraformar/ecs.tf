@@ -30,7 +30,8 @@ data "template_file" "task_definition_json" {
   template = file("task_definition.json")
 
   vars = {
-    CONTAINER_IMAGE = var.container_image
+    CONTAINER_IMAGE = var.container_image,
+    SSM_TERRAFORM   = aws_ssm_parameter.testeEnv3.arn
   }
 }
 

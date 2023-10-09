@@ -31,7 +31,7 @@
           },
           {
             "name": "TESTE_ENV3",
-            "value": "arn:aws:ssm:us-west-2:939600059814:parameter/TESTE_ENV3"
+            "valueFrom": "${SSM_TERRAFORM}"
           }
         ],
         "mountPoints": [],
