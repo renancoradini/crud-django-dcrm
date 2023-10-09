@@ -1,6 +1,8 @@
 import mysql.connector
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 
 dataBase = mysql.connector.connect(
