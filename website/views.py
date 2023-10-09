@@ -12,7 +12,8 @@ load_dotenv()
 
 def home(request):
 	records = Record.objects.all()
-	TESTE_ENVS = os.getenv('TESTE_ENV')
+	TESTE_ENV = os.getenv('TESTE_ENV')
+	TESTE_ENV2 = os.getenv('TESTE_ENV2')
 	# Check to see if logging in
 	if request.method == 'POST':
 		username = request.POST['username']
@@ -27,7 +28,7 @@ def home(request):
 			messages.success(request, "There Was An Error Logging In, Please Try Again...")
 			return redirect('home')
 	else:
-		return render(request, 'home.html', {'records':records, 'TESTE_ENV': TESTE_ENVS})
+		return render(request, 'home.html', {'records':records, 'TESTE_ENV': TESTE_ENV,'TESTE_ENV2': TESTE_ENV2})
 
 
 
