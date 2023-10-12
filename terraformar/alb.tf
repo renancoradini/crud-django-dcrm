@@ -12,8 +12,8 @@ resource "aws_lb" "loadbalancer" {
 
 
 resource "aws_alb_target_group" "alb_public_webservice_target_group" {
-  name     = "public-webservice-tg"
-  port     = "80"
+  name     = "public-webservice-tg2"
+  port     = "8000"
   protocol = "HTTP"
   vpc_id   = module.vpc.vpc_id
 
@@ -25,6 +25,7 @@ resource "aws_alb_target_group" "alb_public_webservice_target_group" {
     unhealthy_threshold = "10"
     timeout             = "10"
   }
+
 }
 
 resource "aws_lb_listener" "lb_listener-webservice-https" {
