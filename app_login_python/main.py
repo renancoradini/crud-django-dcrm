@@ -15,15 +15,45 @@ chrome_options.add_argument("--no-sandbox")
 homedir = os.path.expanduser("~")
 webdriver_service = Service("./driver/chromedriver")
 
+
+
 # Choose Chrome Browser
 browser = webdriver.Chrome(service=webdriver_service, options=chrome_options)
 
-# Get page
-browser.get("https://cloudbytes.dev")
+usermail = "aws@alvaromenezes.com.br"
+userpass = "abCD1234"
 
-# Extract description from page and print
-description = browser.find_element(By.NAME, "description").get_attribute("content")
-print(description)
+# Get page
+
+# head to github login page
+browser.get('https://learn.acloud.guru/')
+
+time.sleep(10)
+browser.find_element(By.NAME,"email").send_keys(usermail)
+time.sleep(2)
+browser.find_element(By.NAME,"password").send_keys(userpass)
+time.sleep(2)
+browser.find_element(By.NAME,"submit").click
+
+# browser.find_element(By.ID,"1-password").send_keys("abCD1234")
+# browser.find_element(By.ID,"1-submit").click()
+
+
+
+# # find username/email field and send the username itself to the input field
+# browser.find_element("id", "login_field").send_keys(username)
+# # find password input field and insert password as well
+# browser.find_element("id", "password").send_keys(password)
+# # click login button
+# browser.find_element("name", "commit").click()
+
+# browser.find_element
+
+# alt-image-w-arrow
+
+# # Extract description from page and print
+# description = browser.find_element(By.NAME, "description").get_attribute("content")
+# print(description)
 
 #Wait for 10 seconds
 time.sleep(10)
