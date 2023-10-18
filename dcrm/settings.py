@@ -80,7 +80,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "dcrm.wsgi.application"
 
 
-# Database
+# Databases
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
