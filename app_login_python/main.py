@@ -20,20 +20,20 @@ webdriver_service = Service("./driver/chromedriver")
 # Choose Chrome Browser
 browser = webdriver.Chrome(service=webdriver_service, options=chrome_options)
 
-usermail = "aws@alvaromenezes.com.br"
-userpass = "abCD1234"
+usermail = "renanps@gmail.com"
+userpass = "Xul1p4!!"
 
 # Get page
 
 # head to github login page
-browser.get('https://learn.acloud.guru/')
+browser.get('https://www.facebook.com/')
 
 time.sleep(10)
 browser.find_element(By.NAME,"email").send_keys(usermail)
 time.sleep(2)
-browser.find_element(By.NAME,"password").send_keys(userpass)
+browser.find_element(By.NAME,"pass").send_keys(userpass)
 time.sleep(2)
-browser.find_element(By.NAME,"submit").click
+browser.find_element(By.NAME,"login").click
 
 # browser.find_element(By.ID,"1-password").send_keys("abCD1234")
 # browser.find_element(By.ID,"1-submit").click()
