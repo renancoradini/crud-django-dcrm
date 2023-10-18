@@ -13,7 +13,7 @@ ENV DATABASE_USER ${DATABASE_USER}
 ARG DATABASE_PASS=teste.com
 ENV DATABASE_PASS ${DATABASE_PASS}
 
-ARG DATABASE_HOST=name1db.ck13dgswr816.us-west-2.rds.amazonaws.com
+ARG DATABASE_HOST=name1db.cn5tz8ltiqx0.us-west-2.rds.amazonaws.com
 
 ENV DATABASE_HOST ${DATABASE_HOST}
 
