@@ -52,7 +52,7 @@ MIDDLEWARE = [
 ]
 
 
-#add it to the setting file
+# add it to the setting file
 
 CSRF_TRUSTED_ORIGINS = [
     'https://appdenzel.priscilacoradini.com'
@@ -82,9 +82,6 @@ WSGI_APPLICATION = "dcrm.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-
-
 
 
 DATABASES = {
@@ -117,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+#
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
