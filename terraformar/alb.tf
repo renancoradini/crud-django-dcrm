@@ -33,7 +33,7 @@ resource "aws_lb_listener" "lb_listener-webservice-https" {
   port              = "80"
   protocol          = "HTTP"
   #ssl_policy        = "ELBSecurityPolicy-2016-08"
-  certificate_arn = aws_acm_certificate.appdenzelcert.arn
+  #certificate_arn = aws_acm_certificate.appdenzelcert.arn
 
   default_action {
     type             = "forward"
@@ -58,9 +58,9 @@ resource "aws_lb_listener" "lb_listener-webservice-https" {
 #   }
 # }
 
-resource "aws_lb_listener_certificate" "example" {
-  listener_arn    = aws_lb_listener.lb_listener-webservice-https.arn
-  certificate_arn = aws_acm_certificate.appdenzelcert.arn
-}
+# resource "aws_lb_listener_certificate" "example" {
+#   listener_arn    = aws_lb_listener.lb_listener-webservice-https.arn
+#   certificate_arn = aws_acm_certificate.appdenzelcert.arn
+# }
 
 

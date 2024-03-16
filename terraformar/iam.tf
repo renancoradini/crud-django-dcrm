@@ -122,8 +122,5 @@ resource "aws_iam_role_policy_attachment" "ecs_role_policy_attacnhement3" {
   depends_on = [aws_iam_role.ecs_agent]
 }
 
-
-
-
 #Lembrar de add esta policies ao ecs_agent
 #AmazonSSMFullAccess
