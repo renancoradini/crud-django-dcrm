@@ -27,7 +27,7 @@
         "environment": [
           {
             "name": "TESTE_ENV2",
-            "value": "CONFIGURADO NA TASKS DEFINITION AMAZON2"
+            "value": "PASSING A ENV VAR THROUGH Task Definition / ECS"
           }
         ],
         "mountPoints": [],
