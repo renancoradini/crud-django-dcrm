@@ -15,9 +15,9 @@
 #   certificate_arn = aws_acm_certificate.ssl_certificate.arn
 # }
 #
-
-resource "aws_acm_certificate" "appdenzelcert" {
-  private_key       = file("appdenzel_privatekey.pem")
-  certificate_body  = file("appdenzel_cert.pem")
-  certificate_chain = file("appdenzel_fullchain.pem")
-}
+### uncomment for upload valid certificate
+# resource "aws_acm_certificate" "appdenzelcert" {
+#   private_key       = file("appdenzel_privatekey.pem")
+#   certificate_body  = file("appdenzel_cert.pem")
+#   certificate_chain = file("appdenzel_fullchain.pem")
+# }
