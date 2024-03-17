@@ -60,6 +60,11 @@ resource "aws_ecs_service" "service-webservice" {
     weight            = 1
   }
 
+  ordered_placement_strategy {
+    type  = "spread"
+    field = "host"
+  }
+
 }
 
 resource "aws_ecs_capacity_provider" "capacity-provider" {
