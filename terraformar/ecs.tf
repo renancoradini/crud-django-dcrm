@@ -8,8 +8,8 @@ resource "aws_ecs_cluster_capacity_providers" "cluster-cp-association" {
   capacity_providers = [aws_ecs_capacity_provider.capacity-provider.name]
 
   default_capacity_provider_strategy {
-    base              = 1
-    weight            = 50
+    base              = 2
+    weight            = 0
     capacity_provider = aws_ecs_capacity_provider.capacity-provider.name
   }
 }
@@ -71,7 +71,7 @@ resource "aws_ecs_capacity_provider" "capacity-provider" {
 
     managed_scaling {
       status          = "ENABLED"
-      target_capacity = 50 #50
+      target_capacity = 90 #50
     }
   }
 }
