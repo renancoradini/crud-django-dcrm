@@ -27,7 +27,7 @@ resource "aws_autoscaling_group" "tf2" {
   module.vpc.public_subnets[0], module.vpc.public_subnets[1], module.vpc.public_subnets[2]] #two subnets
 
   health_check_type = "ELB"
-  # Apenas necessario se for ELB, ALB funciona pelo target group
+  # Only needed for ELB, ALB works with target group
   # load_balancers = [aws_lb.loadbalancer.id]
   target_group_arns = [aws_alb_target_group.alb_public_webservice_target_group.arn]
 
@@ -42,7 +42,7 @@ resource "aws_autoscaling_group" "tf2" {
   }
 }
 
-## In the future change the security group of instance to talk
+## In the future need to change the security group of instance to talk
 #  only with LB
 
 resource "aws_launch_template" "tf_launch_template" {

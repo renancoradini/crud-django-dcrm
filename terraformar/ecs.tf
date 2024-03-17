@@ -37,11 +37,12 @@ data "template_file" "task_definition_json" {
 
 ##### AWS ECS-SERVICE #####
 resource "aws_ecs_service" "service-webservice" {
-  cluster         = aws_ecs_cluster.cluster.id                  # ECS Cluster ID
-  desired_count   = 2                                           # Number of tasks running
-  launch_type     = "EC2"                                       # Cluster type [ECS OR FARGATE]
-  name            = "denzelrr-webservice-service-webservice"    # Name of service
-  task_definition = aws_ecs_task_definition.task_definition.arn # Attach the task to service
+  cluster       = aws_ecs_cluster.cluster.id # ECS Cluster ID
+  desired_count = 2                          # Number of tasks running
+  #launch_type                        = "EC2"                                       # Cluster type [ECS OR FARGATE]
+  name                               = "denzelrr-webservice-service-webservice"    # Name of service
+  task_definition                    = aws_ecs_task_definition.task_definition.arn # Attach the task to service
+  deployment_minimum_healthy_percent = 50
   load_balancer {
     container_name   = "denzelrr-webservice"
     container_port   = "80"
@@ -51,8 +52,14 @@ resource "aws_ecs_service" "service-webservice" {
   lifecycle {
     ignore_changes = [desired_count, task_definition]
   }
-}
 
+  capacity_provider_strategy {
+    capacity_provider = aws_ecs_capacity_provider.capacity-provider.name
+    base              = 2
+    weight            = 1
+  }
+
+}
 
 resource "aws_ecs_capacity_provider" "capacity-provider" {
   name = "capacity-provider-denzel"
@@ -63,7 +70,7 @@ resource "aws_ecs_capacity_provider" "capacity-provider" {
 
     managed_scaling {
       status          = "ENABLED"
-      target_capacity = 50
+      target_capacity = 50 #50
     }
   }
 }
