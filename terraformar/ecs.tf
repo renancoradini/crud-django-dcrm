@@ -42,7 +42,7 @@ resource "aws_ecs_service" "service-webservice" {
   #launch_type                        = "EC2"                                       # Cluster type [ECS OR FARGATE]
   name                               = "denzelrr-webservice-service-webservice"    # Name of service
   task_definition                    = aws_ecs_task_definition.task_definition.arn # Attach the task to service
-  deployment_minimum_healthy_percent = 50
+  deployment_minimum_healthy_percent = 100
   health_check_grace_period_seconds  = 30
   load_balancer {
     container_name   = "denzelrr-webservice"
