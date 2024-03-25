@@ -14,27 +14,6 @@ resource "aws_ecs_cluster_capacity_providers" "cluster-cp-association" {
   }
 }
 
-##### AWS ECS-TASK #####
-
-resource "aws_ecs_task_definition" "task_definition" {
-  container_definitions    = data.template_file.task_definition_json.rendered # task defination json file location
-  family                   = "denzelrr-task-defination-webservice"            # task name
-  network_mode             = "host"                                           #was bridge before # network mode awsvpc, brigde
-  memory                   = "256"
-  cpu                      = "256"
-  requires_compatibilities = ["EC2"] # Fargate or EC2
-  execution_role_arn       = aws_iam_role.ecs_role_task_test.arn
-}
-
-data "template_file" "task_definition_json" {
-  template = file("task_definition.json")
-
-  vars = {
-    CONTAINER_IMAGE = var.container_image,
-    SSM_TERRAFORM   = aws_ssm_parameter.testeEnv3.arn
-  }
-}
-
 ##### AWS ECS-SERVICE #####
 resource "aws_ecs_service" "service-webservice" {
   cluster       = aws_ecs_cluster.cluster.id # ECS Cluster ID
@@ -78,5 +57,26 @@ resource "aws_ecs_capacity_provider" "capacity-provider" {
       status          = "ENABLED"
       target_capacity = 90 #50
     }
+  }
+}
+
+##### AWS ECS-TASK #####
+
+resource "aws_ecs_task_definition" "task_definition" {
+  container_definitions    = data.template_file.task_definition_json.rendered # task defination json file location
+  family                   = "denzelrr-task-defination-webservice"            # task name
+  network_mode             = "host"                                           #was bridge before # network mode awsvpc, brigde
+  memory                   = "256"
+  cpu                      = "256"
+  requires_compatibilities = ["EC2"] # Fargate or EC2
+  execution_role_arn       = aws_iam_role.ecs_role_task_test.arn
+}
+
+data "template_file" "task_definition_json" {
+  template = file("task_definition.json")
+
+  vars = {
+    CONTAINER_IMAGE = var.container_image,
+    SSM_TERRAFORM   = aws_ssm_parameter.testeEnv3.arn
   }
 }

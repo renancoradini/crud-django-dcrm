@@ -20,13 +20,13 @@ resource "aws_instance" "ec2_ssh" {
 ##Auto Scale Group
 
 resource "aws_autoscaling_group" "tf2" {
-  desired_capacity = 3 #set to what you like; must be same number as min
+  desired_capacity = 4 #set to what you like; must be same number as min
   max_size         = 4 #set to what you like
-  min_size         = 3 #set to what you like; must be same as desired capacity
+  min_size         = 4 #set to what you like; must be same as desired capacity
   vpc_zone_identifier = [
   module.vpc.public_subnets[0], module.vpc.public_subnets[1], module.vpc.public_subnets[2]] #two subnets
 
-  health_check_type = "ELB"
+  # health_check_type = "ELB"
   # Only needed for ELB, ALB works with target group
   # load_balancers = [aws_lb.loadbalancer.id]
   target_group_arns = [aws_alb_target_group.alb_public_webservice_target_group.arn]
@@ -42,8 +42,7 @@ resource "aws_autoscaling_group" "tf2" {
   }
 }
 
-## In the future need to change the security group of instance to talk
-#  only with LB
+## In the future need to change the security group of instance to talk only with LB
 
 resource "aws_launch_template" "tf_launch_template" {
   name_prefix   = "tf-launch_template"

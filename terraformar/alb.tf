@@ -1,5 +1,5 @@
 ##### ALB - Application Load Balancing #####
-##### ALB - Load Balancer #####sudo yum update -y
+
 resource "aws_lb" "loadbalancer" {
   internal           = "false" # internal = true else false
   name               = "denzelrr-alb"
@@ -9,7 +9,6 @@ resource "aws_lb" "loadbalancer" {
 }
 
 ##### ALB - Target Groups #####
-
 
 resource "aws_alb_target_group" "alb_public_webservice_target_group" {
   name     = "public-webservice-tg3"
@@ -41,8 +40,7 @@ resource "aws_lb_listener" "lb_listener-webservice-https" {
   }
 }
 
-#Aplly listeners again when u have ssl certicate
-##### ALB - Listeners #####
+##### ALB - Listeners for HTTPS # SSL certs #####
 
 # resource "aws_lb_listener" "lb_listener-webservice-https-redirect" {
 #   load_balancer_arn = aws_lb.loadbalancer.arn
@@ -58,7 +56,7 @@ resource "aws_lb_listener" "lb_listener-webservice-https" {
 #   }
 # }
 
-# resource "aws_lb_listener_certificate" "example" {
+# resource "aws_lb_listener_certificate" "certappdenzel" {
 #   listener_arn    = aws_lb_listener.lb_listener-webservice-https.arn
 #   certificate_arn = aws_acm_certificate.appdenzelcert.arn
 # }

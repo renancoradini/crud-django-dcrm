@@ -8,7 +8,6 @@ resource "aws_db_subnet_group" "default" {
   }
 }
 
-
 resource "aws_db_instance" "name1db" {
   allocated_storage    = 5
   storage_type         = "gp2"

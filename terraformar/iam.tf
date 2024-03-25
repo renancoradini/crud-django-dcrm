@@ -1,8 +1,3 @@
-resource "aws_iam_role_policy_attachment" "Cloudwatch_FullAccess" {
-  role       = aws_iam_role.ecs_agent.name
-  policy_arn = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
-}
-
 data "aws_iam_policy_document" "ecs-instance-policy" {
   statement {
     actions = ["sts:AssumeRole"]
@@ -55,16 +50,19 @@ resource "aws_iam_role_policy_attachment" "ecs_agent3" {
   depends_on = [aws_iam_role.ecs_agent]
 }
 
+resource "aws_iam_role_policy_attachment" "Cloudwatch_FullAccess" {
+  role       = aws_iam_role.ecs_agent.name
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
+}
 
 resource "aws_iam_instance_profile" "ecs_agent" {
   name = "ecs-agent"
   role = aws_iam_role.ecs_agent.name
 }
 
-
 #########
 
-# Create an IAM policy
+# Creating an IAM policy
 resource "aws_iam_policy" "ecs_policy_task_test" {
   name = "ecs_policy_task_test"
 
@@ -83,7 +81,7 @@ resource "aws_iam_policy" "ecs_policy_task_test" {
   })
 }
 
-# Create an IAM role
+# Creating an IAM role
 resource "aws_iam_role" "ecs_role_task_test" {
   name = "ecs_role_task_test"
 
