@@ -68,7 +68,6 @@ resource "aws_security_group_rule" "public_out_ec2" {
   security_group_id = aws_security_group.ec2_ecs_instance.id
 }
 
-
 ## Security Group RDS
 resource "aws_security_group" "mysql" {
   name        = "mysql-security-group"

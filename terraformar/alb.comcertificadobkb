@@ -1,5 +1,5 @@
 ##### ALB - Application Load Balancing #####
-
+##### ALB - Load Balancer #####sudo yum update -y
 resource "aws_lb" "loadbalancer" {
   internal           = "false" # internal = true else false
   name               = "denzelrr-alb"
@@ -9,6 +9,7 @@ resource "aws_lb" "loadbalancer" {
 }
 
 ##### ALB - Target Groups #####
+
 
 resource "aws_alb_target_group" "alb_public_webservice_target_group" {
   name     = "public-webservice-tg3"
@@ -29,10 +30,10 @@ resource "aws_alb_target_group" "alb_public_webservice_target_group" {
 
 resource "aws_lb_listener" "lb_listener-webservice-https" {
   load_balancer_arn = aws_lb.loadbalancer.arn
-  port              = "80"
-  protocol          = "HTTP"
+  port              = "443"
+  protocol          = "HTTPS"
   #ssl_policy        = "ELBSecurityPolicy-2016-08"
-  #certificate_arn = aws_acm_certificate.appdenzelcert.arn
+  certificate_arn = aws_acm_certificate.appdenzelcert.arn
 
   default_action {
     type             = "forward"
@@ -40,25 +41,26 @@ resource "aws_lb_listener" "lb_listener-webservice-https" {
   }
 }
 
-##### ALB - Listeners for HTTPS # SSL certs #####
 
-# resource "aws_lb_listener" "lb_listener-webservice-https-redirect" {
-#   load_balancer_arn = aws_lb.loadbalancer.arn
-#   port              = "80"
-#   protocol          = "HTTP"
-#   default_action {
-#     type = "redirect"
-#     redirect {
-#       port        = "443"
-#       protocol    = "HTTPS"
-#       status_code = "HTTP_301"
-#     }
-#   }
-# }
+##### ALB - Listeners #####
 
-# resource "aws_lb_listener_certificate" "certappdenzel" {
-#   listener_arn    = aws_lb_listener.lb_listener-webservice-https.arn
-#   certificate_arn = aws_acm_certificate.appdenzelcert.arn
-# }
+resource "aws_lb_listener" "lb_listener-webservice-https-redirect" {
+  load_balancer_arn = aws_lb.loadbalancer.arn
+  port              = "80"
+  protocol          = "HTTP"
+  default_action {
+    type = "redirect"
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
+  }
+}
+
+resource "aws_lb_listener_certificate" "example" {
+  listener_arn    = aws_lb_listener.lb_listener-webservice-https.arn
+  certificate_arn = aws_acm_certificate.appdenzelcert.arn
+}
 
 

@@ -85,13 +85,10 @@ variable "image_ecs_id" {
 
 }
 
-
 variable "key_name" {
   type    = string
   default = "denzelkeyname"
 }
-
-
 
 ### RDS
 
@@ -101,7 +98,6 @@ variable "namedb" {
   sensitive   = true
   default     = "DBNAMEPOSTGRES"
 }
-
 
 variable "usernameDB" {
   description = "The master username for the database."

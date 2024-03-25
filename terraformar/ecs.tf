@@ -8,9 +8,55 @@ resource "aws_ecs_cluster_capacity_providers" "cluster-cp-association" {
   capacity_providers = [aws_ecs_capacity_provider.capacity-provider.name]
 
   default_capacity_provider_strategy {
-    base              = 1
-    weight            = 50
+    base              = 2
+    weight            = 0
     capacity_provider = aws_ecs_capacity_provider.capacity-provider.name
+  }
+}
+
+##### AWS ECS-SERVICE #####
+resource "aws_ecs_service" "service-webservice" {
+  cluster       = aws_ecs_cluster.cluster.id # ECS Cluster ID
+  desired_count = 2                          # Number of tasks running
+  #launch_type                        = "EC2"                                       # Cluster type [ECS OR FARGATE]
+  name                               = "denzelrr-webservice-service-webservice"    # Name of service
+  task_definition                    = aws_ecs_task_definition.task_definition.arn # Attach the task to service
+  deployment_minimum_healthy_percent = 100
+  health_check_grace_period_seconds  = 30
+  load_balancer {
+    container_name   = "denzelrr-webservice"
+    container_port   = "80"
+    target_group_arn = aws_alb_target_group.alb_public_webservice_target_group.arn
+  }
+
+  lifecycle {
+    ignore_changes = [desired_count, task_definition]
+  }
+
+  capacity_provider_strategy {
+    capacity_provider = aws_ecs_capacity_provider.capacity-provider.name
+    base              = 2
+    weight            = 1
+  }
+
+  ordered_placement_strategy {
+    type  = "spread"
+    field = "host"
+  }
+
+}
+
+resource "aws_ecs_capacity_provider" "capacity-provider" {
+  name = "capacity-provider-denzel"
+
+  auto_scaling_group_provider {
+    auto_scaling_group_arn = aws_autoscaling_group.tf2.arn
+    # managed_termination_protection = "ENABLED"
+
+    managed_scaling {
+      status          = "ENABLED"
+      target_capacity = 90 #50
+    }
   }
 }
 
@@ -32,38 +78,5 @@ data "template_file" "task_definition_json" {
   vars = {
     CONTAINER_IMAGE = var.container_image,
     SSM_TERRAFORM   = aws_ssm_parameter.testeEnv3.arn
-  }
-}
-
-##### AWS ECS-SERVICE #####
-resource "aws_ecs_service" "service-webservice" {
-  cluster         = aws_ecs_cluster.cluster.id                  # ECS Cluster ID
-  desired_count   = 2                                           # Number of tasks running
-  launch_type     = "EC2"                                       # Cluster type [ECS OR FARGATE]
-  name            = "denzelrr-webservice-service-webservice"    # Name of service
-  task_definition = aws_ecs_task_definition.task_definition.arn # Attach the task to service
-  load_balancer {
-    container_name   = "denzelrr-webservice"
-    container_port   = "80"
-    target_group_arn = aws_alb_target_group.alb_public_webservice_target_group.arn
-  }
-
-  lifecycle {
-    ignore_changes = [desired_count, task_definition]
-  }
-}
-
-
-resource "aws_ecs_capacity_provider" "capacity-provider" {
-  name = "capacity-provider-denzel"
-
-  auto_scaling_group_provider {
-    auto_scaling_group_arn = aws_autoscaling_group.tf2.arn
-    # managed_termination_protection = "ENABLED"
-
-    managed_scaling {
-      status          = "ENABLED"
-      target_capacity = 50
-    }
   }
 }
