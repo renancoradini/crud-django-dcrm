@@ -3,7 +3,7 @@
 dcrm/__pycache__/
 terraformar/.terraform.lock.hcl
 terraformar/.terraform/
-terraformar/aws_keys_pairs.pem
+*.pem
 terraformar/terraform.tfstate
 terraformar/terraform.tfstate.backup
 website/__pycache__/
